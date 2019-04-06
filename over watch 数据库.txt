@@ -1,0 +1,116 @@
+set character_set_client = gbk;
+set character_set_connection = gbk;
+set character_set_database = gbk;
+set character_set_results = gbk;
+set character_set_server = gbk;
+set collation_connection = gbk_chinese_ci ;
+set collation_database = gbk_chinese_ci ;
+set collation_server = gbk_chinese_ci ;
+
+create database fc;
+use fc;
+create table 武器表(
+武器编号 int primary key,
+武器名字 char(20) not null,
+武器类型 char(20) not null,
+武器数量 int not null);
+create table 国籍表(
+国籍编号 int primary key,
+国籍名字 char(20) not null
+);
+create table 突击(
+人物编号 int auto_increment primary key,
+名字 char(20) not null unique,
+难度 char(10) not null,
+武器编号 int not null,
+constraint a_fk foreign key (武器编号) references 武器表(武器编号)
+on delete cascade,
+国籍编号 int default 6,
+时间 datetime null,
+constraint b_fk foreign key(国籍编号) references 国籍表(国籍编号)
+on delete cascade
+);
+create table 防御(
+人物编号 int auto_increment primary key,
+名字 char(20) not null,
+难度 char(10) not null,
+武器编号 int not null,
+constraint c_fk foreign key (武器编号) references 武器表(武器编号)
+on delete cascade,
+国籍编号 int default 6,
+constraint d_fk foreign key(国籍编号) references 国籍表(国籍编号)
+on delete cascade
+);
+create table 重装(
+人物编号 int auto_increment primary key,
+名字 char(20) not null,
+难度 char(10) not null,
+武器编号 int not null,
+constraint e_fk foreign key (武器编号) references 武器表(武器编号)
+on delete cascade,
+国籍编号 int default 6,
+constraint f_fk foreign key(国籍编号) references 国籍表(国籍编号)
+on delete cascade
+);
+create table 支援(
+人物编号 int auto_increment primary key,
+名字 char(20) not null,
+难度 char(10) not null,
+武器编号 int not null,
+constraint g_fk foreign key (武器编号) references 武器表(武器编号)
+on delete cascade,
+国籍编号 int default 6,
+constraint h_fk foreign key(国籍编号) references 国籍表(国籍编号)
+on delete cascade
+);
+
+insert into 武器表 values(1,'长刀','近身武器',10); 
+insert into 武器表 values(2,'枪械','远程武器',30);
+insert into 武器表 values(3,'轰击炮','远程武器',5);
+insert into 武器表 values(4,'复合弓','远程武器',5);
+insert into 武器表 values(5,'钢锤','近身武器',5);
+insert into 武器表 values(6,'激光枪','中程武器',10);
+
+insert into 国籍表 values(1,'日本');
+insert into 国籍表 values(2,'埃及');
+insert into 国籍表 values(3,'美国');
+insert into 国籍表 values(4,'南非');
+insert into 国籍表 values(5,'英国');
+insert into 国籍表 values(6,'未知');
+insert into 国籍表 values(7,'澳大利亚');
+insert into 国籍表 values(8,'中国');
+insert into 国籍表 values(9,'法国');
+insert into 国籍表 values(10,'瑞典');
+insert into 国籍表 values(11,'韩国');
+insert into 国籍表 values(12,'德国');
+insert into 国籍表 values(13,'俄罗斯');
+insert into 国籍表 values(14,'巴西');
+insert into 国籍表 values(15,'印度');
+insert into 国籍表 values(16,'尼泊尔');
+
+insert into 突击 values('1001','源氏','困难',1,1,now());
+insert into 突击 values('1002','麦克雷','普通',2,3,now()); 
+insert into 突击 values('1003','法老之鹰','容易',3,2,now()); 
+insert into 突击 values('1004','死神','普通',2,4,now()); 
+insert into 突击 values('1005','士兵76','容易',2,3,now()); 
+insert into 突击 values('1006','黑影','困难',2,default,null); 
+insert into 突击 values('1007','猎空','普通',2,5,null);
+
+insert into 防御 values(2001,'堡垒','容易',2,default);
+insert into 防御 values(2002,'半藏','困难',4,1);
+insert into 防御 values(2003,'狂鼠','普通',3,7);
+insert into 防御 values(2004,'美','困难',2,8);
+insert into 防御 values(2005,'托比昂','普通',5,10);
+insert into 防御 values(2006,'黑百合','普通',2,9);
+
+insert into 重装 values(3001,'D.Va','普通',2,11);
+insert into 重装 values(3002,'莱因哈特','容易',5,12);
+insert into 重装 values(3003,'路霸','容易',2,7);
+insert into 重装 values(3004,'温斯顿','普通',6,default);
+insert into 重装 values(3005,'查莉娅','困难',6,13);
+
+insert into 支援 values(4001,'安娜','困难',2,2);
+insert into 支援 values(4002,'卢西奥','普通',6,14);
+insert into 支援 values(4003,'天使','容易',2,10);
+insert into 支援 values(4004,'秩序之光','普通',6,15);
+insert into 支援 values(4005,'禅雅塔','困难',6,16);
