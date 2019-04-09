@@ -1,0 +1,24 @@
+delimiter $$
+create function b_chufa (x int)
+returns int
+no sql
+begin
+declare z int default 0;
+declare sum char(20) default 0;
+b_sum:while true do
+set z=z+1;
+if(z=(x+1)) then leave b_sum;
+else
+if(z%2=0) then iterate b_sum;
+else set sum=sum+z;
+end if;
+end if;
+end while b_sum;
+return sum;
+end;
+$$
+
+
+select b_chufa(5);
+select b_chufa(4);
+
