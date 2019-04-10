@@ -1,0 +1,11 @@
+delimiter $$
+create trigger wq before delete on 突击
+for each row
+begin
+delete from 国籍表 where 国籍编号=old.国籍编号;
+end
+
+delete from 突击 where 人物编号=1004;
+
+select * from 突击;
+select * from 国籍表;
